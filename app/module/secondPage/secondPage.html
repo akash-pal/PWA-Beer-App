@@ -1,0 +1,50 @@
+<md-toolbar>
+
+    <div class="md-toolbar-tools">
+        <h2 md-truncate flex>Beer App</h2>
+        <md-button ng-click="clearCart()">
+            <md-icon class="material-icons">remove_shopping_cart</md-icon>
+        </md-button>
+    </div>
+
+</md-toolbar>
+
+<md-content>
+
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Cart</span>
+            </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+            <div ng-if="cart.length == 0"> No items in cart </div>
+            <md-list ng-if="showCart">
+                <md-list-item class="md-3-line" ng-repeat="beer in cart">
+
+                    <div class="md-list-item-text">
+
+                        <p>Quantity:{{beer.beerQty}}</p>
+                        <div>
+                            <div>
+                                <h3 ng-if="beer.detail.name">Name:{{beer.detail.name}}</h3>
+                                <p ng-if="beer.detail.style">Style:{{beer.detail.style}}</p>
+                                <p ng-if="beer.detail.ounces">Size of beer (ounces):{{beer.detail.ounces}}</p>
+                                <p ng-if="beer.detail.abv">Alcoholic content:{{beer.detail.abv}}</p>
+                                <p ng-if="beer.detail.ibu">International bittering units:{{beer.detail.ibu}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <md-button ng-click="removeItem(beer.beerId)" class="md-secondary md-raised"> Remove Item</md-button>
+                    <md-divider ng-if="!$last"></md-divider>
+
+                </md-list-item>
+            </md-list>
+
+        </md-card-content>
+    </md-card>
+
+</md-content>

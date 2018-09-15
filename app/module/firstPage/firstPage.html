@@ -1,0 +1,99 @@
+<md-toolbar>
+
+    <div class="md-toolbar-tools">
+        <h2 md-truncate flex>Beer App</h2>
+        <md-button ng-click="goCart()">
+            <md-icon class="material-icons">shopping_cart</md-icon>
+        </md-button>
+    </div>
+
+</md-toolbar>
+<md-content>
+
+    <div>
+
+        <angucomplete-alt id="ex1" placeholder="Search Beer" pause="100" selected-object="selectedBeer" local-data="beers" search-fields="name"
+            title-field="name" minlength="1" input-class="form-control form-control-small" match-class="highlight" />
+    </div>
+
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Alcoholic content</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+
+            <md-radio-group ng-model="sortType">
+                <md-radio-button ng-click="sort('ascending')" value="ascending">Ascending</md-radio-button>
+                <md-radio-button ng-click="sort('descending')" value="descending"> Descending </md-radio-button>
+            </md-radio-group>
+
+        </md-card-content>
+
+    </md-card>
+
+
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Beer Preferences</span>
+            </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+            <div layout="row" layout-align="space-between center">
+                <span>Which Beer style do you prefer?</span>
+                <md-select ng-model="styleName" placeholder="Select" class="md-no-underline">
+                    <md-option value="lager">American Pale Lager</md-option>
+                    <md-option value="ale">American Pale Ale (APA)</md-option>
+                    <md-option value="ipa">American IPA</md-option>
+                </md-select>
+            </div>
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Beers</span>
+            </md-card-title-text>
+        </md-card-title>
+
+        <md-card-content>
+
+            <md-list>
+                <md-list-item class="md-3-line" id="{{beer.id}}" ng-repeat="beer in beers | filter:criteriaMatch(criteria) | orderBy:orderParam ">
+
+                    <div class="md-list-item-text">
+
+                        <span ng-init="setCounter(beer)"></span>
+                        <h3 ng-if="beer.name">Name:{{beer.name}}</h3>
+                        <p ng-if="beer.style">Style:{{beer.style}}</p>
+                        <p ng-if="beer.ounces">Size of beer (ounces):{{beer.ounces}}</p>
+                        <p ng-if="beer.abv">Alcoholic content:{{beer.abv}}</p>
+                        <p ng-if="beer.ibu">International bittering units:{{beer.ibu}}</p>
+
+                        <div>
+                            <md-button class="md-fab md-mini" ng-click="decrement(beer)">
+                                <md-icon class="material-icons">remove_circle</md-icon>
+                            </md-button>
+                            {{beer.counter}}
+                            <md-button class="md-fab md-mini" ng-click="increment(beer)">
+                                <md-icon class="material-icons">add_box</md-icon>
+                            </md-button>
+                        </div>
+
+
+                    </div>
+
+                    <md-button ng-click="purchaseBeer(beer.id,beer.counter)" class="md-secondary md-raised"> Add to Cart </md-button>
+                    <md-divider ng-if="!$last"></md-divider>
+
+                </md-list-item>
+            </md-list>
+
+        </md-card-content>
+    </md-card>
+
+</md-content>
